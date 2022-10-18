@@ -4,10 +4,7 @@
       <ActionBar>
         <Label text="{N} + Formily = ❤️‍🔥" class="font-bold text-lg" />
       </ActionBar>
-      <StackLayout>
-        <FormItem>
-          <TextField hint="test" />
-        </FormItem>
+      <StackLayout orientation="vertical"  class="p-4">
         <Form :form="form">
           <SchemaField :schema="schema" />
         </Form>
@@ -17,18 +14,28 @@
 </template>
 
 <script lang="ts">
-import Vue from 'nativescript-vue';
-import { createForm } from '@formily/core';
-import { createSchemaField } from '@formily/vue';
-import Input from '@/formily/input';
-import FormItem from '@/formily/FormItem.vue';
+import Vue from "nativescript-vue";
+import { createForm } from "@formily/core";
+import { createSchemaField } from "@formily/vue";
+//@ts-ignore
+import Form from "@/formily/Form";
+//@ts-ignore
+import Input from "@/formily/Input";
+import FormItem from "@/formily/FormItem";
+import Password from "@/formily/Password";
+import Switch from "@/formily/Switch";
+import DatePicker from "@/formily/DatePicker";
+import TimePicker from "@/formily/TimePicker";
 
-import Form from '@/formily/form';
 const { SchemaField } = createSchemaField({
   components: {
-    Input,
     Form,
     FormItem,
+    Input,
+    Password,
+    Switch,
+    DatePicker,
+    TimePicker,
   },
 });
 export default Vue.extend({
@@ -36,43 +43,70 @@ export default Vue.extend({
     return {
       form: createForm(),
       schema: {
-        type: 'object',
+        type: "object",
         properties: {
           username: {
-            type: 'string',
-            title: 'Username',
+            type: "string",
+            title: "Username",
             required: true,
-            'x-component': 'Input',
-            'x-component-props': {
-              hint: 'Username',
-              keyboardType: 'datetime',
+            'x-decorator': 'FormItem',
+            "x-component": "Input",
+            "x-component-props": {
+              hint: "Username",
+              keyboardType: "datetime",
             },
           },
           password: {
-            type: 'string',
+            type: "string",
             required: true,
-            'x-component': 'Input',
-            'x-component-props': {
-              hint: 'Password',
-              secure: true,
-            },
+            "x-component": "Password"
+          },
+          testSwitch: {
+            type: "string",
+            title: "Rememeber me?",
+            required: true,
+            "x-decorator": "FormItem",
+            // "x-decorator-props": {
+            //   layout: "horizontal"
+            // }, //TODO
+            "x-component": "Switch"
+          },
+          from: {
+            type: "string",
+            title: "DatePicker",
+            required: true,
+            "x-decorator": "FormItem",
+            // "x-decorator-props": {
+            //   layout: "horizontal"
+            // }, //TODO
+            "x-component": "DatePicker"
+          },
+          time: {
+            type: "string",
+            title: "Time Picker",
+            required: true,
+            "x-decorator": "FormItem",
+            // "x-decorator-props": {
+            //   layout: "horizontal"
+            // }, //TODO
+            "x-component": "TimePicker"
           },
           firstName: {
-            type: 'string',
-            title: 'Test2',
+            type: "string",
+            title: "Test2",
             required: true,
-            'x-component': 'Input',
-            'x-component-props': {
-              hint: 'First Name',
+            "x-component": "Input",
+            "x-component-props": {
+              hint: "First Name",
             },
           },
           lastName: {
-            type: 'string',
-            'x-component-props': {
-              hint: 'Last Name',
+            type: "string",
+            "x-component-props": {
+              hint: "Last Name",
             },
             required: true,
-            'x-component': 'Input',
+            "x-component": "Input",
           },
         },
       },
@@ -80,16 +114,17 @@ export default Vue.extend({
   },
   computed: {
     message() {
-      return 'Blank {N}-Vue app';
+      return "Blank {N}-Vue app";
     },
   },
   components: {
     Form,
     SchemaField,
+    FormItem,
   },
   methods: {
     logMessage() {
-      console.log('You have tapped the message!');
+      console.log("You have tapped the message!");
     },
   },
 });

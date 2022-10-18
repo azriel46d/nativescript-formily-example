@@ -1,6 +1,7 @@
 import { Form as FormType, IFormFeedback } from '@formily/core';
 import { FormProvider as _FormProvider, h, useForm } from '@formily/vue';
-import { Component, defineComponent, VNode } from 'vue-demi';
+import { defineComponent, VNode } from 'vue-demi';
+import { Component } from 'vue/types/umd';
 
 const FormProvider = _FormProvider as unknown as Component;
 
