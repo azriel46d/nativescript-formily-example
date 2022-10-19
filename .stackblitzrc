@@ -1,5 +1,5 @@
 {
   "installDependencies": true,
   "compileTrigger": "save",
-  "startCommand": "./node_modules/.bin/setup-nativescript-stackblitz && ns preview --no-hmr"
+  "startCommand": "./node_modules/.bin/setup-nativescript-stackblitz && npx vue-demi-switch 2 nativescript-vue && ns preview --no-hmr"
 }
