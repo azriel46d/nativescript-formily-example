@@ -1,7 +1,7 @@
 import { connect, h } from "@formily/vue";
 import { computed, defineComponent, ref, watch } from "vue-demi";
 import Vue from "nativescript-vue";
-import PickerViewVue from "~/component/popovers/PickerView.vue";
+import BottomSheetView from "~/component/BottomSheet/BottomSheetView.vue";
 import { OpenRootLayout, CloseRootLayout } from "~/component/OpenRootLayout";
 import { format } from 'date-fns'
 
@@ -16,7 +16,6 @@ let input = defineComponent({
       date: attrs.value
     });
     let textFieldText = computed(() => {
-      console.log(textFieldState)
       if (textFieldState.value.date) {
         let d = new Date(textFieldState.value.date);
         return `🗓 ${format(d, "dd-MMM-yyyy")}`;
@@ -56,7 +55,7 @@ let input = defineComponent({
                   });
 
                   let pickerView = h(
-                    PickerViewVue,
+                    BottomSheetView,
                     {
                       props: {
                         text: attrs.title,

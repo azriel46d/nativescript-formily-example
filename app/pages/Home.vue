@@ -3,7 +3,7 @@
     <ActionBar>
       <Label text="{N} + Formily = ❤️‍🔥" class="font-bold text-lg" />
     </ActionBar>
-    <RootLayout height="100%" width="100%">
+    <RootLayout height="100%" width="100%" verticalAlignment="bottom">
       <ScrollView>
         <StackLayout orientation="vertical" class="p-4">
           <Form :form="form">
@@ -19,15 +19,8 @@
 import Vue from "nativescript-vue";
 import { createForm } from "@formily/core";
 import { createSchemaField } from "@formily/vue";
-//@ts-ignore
-import Form from "@/formily/Form";
-//@ts-ignore
-import Input from "@/formily/Input";
-import FormItem from "@/formily/FormItem";
-import Password from "@/formily/Password";
-import Switch from "@/formily/Switch";
-import DatePicker from "@/formily/DatePicker";
-import TimePicker from "@/formily/TimePicker";
+import { DatePicker, Form, FormItem, Input, Switch, Password, TimePicker } from "@/formily"
+
 
 const { SchemaField } = createSchemaField({
   components: {
@@ -75,7 +68,7 @@ export default Vue.extend({
               disabled: true
             },
             "x-decorator-props": {
-              tooltip: "Hey the username is generated",
+              tooltip: "Lorem ipsum test a tooltip sheet with some text here.",
             },
             "x-reactions": {
               "dependencies": ["firstName","lastName"],

@@ -35,8 +35,8 @@
 <script lang="ts">
 import { defineComponent } from "vue-demi";
 import Vue from "nativescript-vue";
-import PopupTooltipViewVue from "~/component/popovers/TooltipView.vue";
-import {OpenRootLayout} from "~/component/OpenRootLayout"
+import BottomSheetView from "~/component/BottomSheet/BottomSheetView.vue";
+import { OpenRootLayout } from "~/component/OpenRootLayout";
 export default defineComponent({
   name: "FormItem",
   props: {
@@ -104,16 +104,18 @@ export default defineComponent({
   },
   methods: {
     showTooltip() {
+      let tooltipText = this.tooltip;
       const view = new Vue({
         render: (h) =>
-          h(PopupTooltipViewVue, {
-            props: {
-              text: this.tooltip,
-            },
-          }),
-      }).$mount().nativeView
-      
-      OpenRootLayout(view)
+          h(BottomSheetView, { props: { label: "Information" } }, [
+            h("Label", {
+              attrs: { text: tooltipText, textWrap: true, row: 2 },
+              class: "w-full text-lg mb-8 leading-tight",
+            }),
+          ]),
+      }).$mount().nativeView;
+
+      OpenRootLayout(view);
     },
   },
 });

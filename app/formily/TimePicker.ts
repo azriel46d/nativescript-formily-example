@@ -1,10 +1,9 @@
-import { connect, mapProps, h } from "@formily/vue";
-import { computed, defineComponent, reactive, ref, watch } from "vue-demi";
+import { connect, h } from "@formily/vue";
+import { computed, defineComponent, ref, watch } from "vue-demi";
 import Vue from "nativescript-vue";
-import PickerViewVue from "~/component/popovers/PickerView.vue";
+import BottomSheetView from "~/component/BottomSheet/BottomSheetView.vue";
 import { OpenRootLayout, CloseRootLayout } from "~/component/OpenRootLayout";
-import { VNodeChildren } from "vue";
-import { getRootLayout } from "@nativescript/core";
+
 let input = defineComponent({
   name: "FormilyTimePicker",
   props: {},
@@ -53,7 +52,7 @@ let input = defineComponent({
                   });
 
                   let pickerView = h(
-                    PickerViewVue,
+                    BottomSheetView,
                     {
                       props: {
                         text: attrs.title,

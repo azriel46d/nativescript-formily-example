@@ -1,6 +1,6 @@
 import { isVoidField } from "@formily/core";
 import { connect, mapProps } from "@formily/vue";
-import FormBaseItem from "./FormItemVue.vue";
+import FormBaseItem from "@/component/FormItem/FormItemView.vue";
 
 const Item = connect(
   FormBaseItem,
