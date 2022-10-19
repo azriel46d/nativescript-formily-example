@@ -1,12 +1,13 @@
 import { getRootLayout, View } from "@nativescript/core";
 
 export const OpenRootLayout = (view: View) => {
+  
   getRootLayout()
     .open(view, {
       shadeCover: {
         color: "#000000",
         opacity: 0.5,
-        tapToClose: true,
+        tapToClose: true
       },
       animation: {
         enterFrom: {
