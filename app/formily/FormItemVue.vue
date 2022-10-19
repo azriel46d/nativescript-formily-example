@@ -34,6 +34,9 @@
 
 <script lang="ts">
 import { defineComponent } from "vue-demi";
+import Vue from "nativescript-vue";
+import PopupTooltipViewVue from "~/component/popovers/TooltipView.vue";
+import {OpenRootLayout} from "~/component/OpenRootLayout"
 export default defineComponent({
   name: "FormItem",
   props: {
@@ -79,7 +82,7 @@ export default defineComponent({
     }, // error/success/warning
     // feedbackIcon: {},
     asterisk: {
-      type: Boolean
+      type: Boolean,
     },
     gridSpan: {},
     // bordered: { default: true },
@@ -101,8 +104,17 @@ export default defineComponent({
   },
   methods: {
     showTooltip() {
-      alert(this.tooltip);
+      const view = new Vue({
+        render: (h) =>
+          h(PopupTooltipViewVue, {
+            props: {
+              text: this.tooltip,
+            },
+          }),
+      }).$mount().nativeView
+      
+      OpenRootLayout(view)
     },
-  }
+  },
 });
 </script>

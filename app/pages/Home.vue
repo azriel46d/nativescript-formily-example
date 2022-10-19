@@ -1,16 +1,18 @@
 <template>
-  <RootLayout>
-    <Page>
-      <ActionBar>
-        <Label text="{N} + Formily = ❤️‍🔥" class="font-bold text-lg" />
-      </ActionBar>
-      <StackLayout orientation="vertical"  class="p-4">
-        <Form :form="form">
-          <SchemaField :schema="schema" />
-        </Form>
-      </StackLayout>
-    </Page>
-  </RootLayout>
+  <Page>
+    <ActionBar>
+      <Label text="{N} + Formily = ❤️‍🔥" class="font-bold text-lg" />
+    </ActionBar>
+    <RootLayout height="100%" width="100%">
+      <ScrollView>
+        <StackLayout orientation="vertical" class="p-4">
+          <Form :form="form">
+            <SchemaField :schema="schema" />
+          </Form>
+        </StackLayout>
+      </ScrollView>
+    </RootLayout>
+  </Page>
 </template>
 
 <script lang="ts">
@@ -49,17 +51,20 @@ export default Vue.extend({
             type: "string",
             title: "Username",
             required: true,
-            'x-decorator': 'FormItem',
+            "x-decorator": "FormItem",
             "x-component": "Input",
             "x-component-props": {
               hint: "Username",
               keyboardType: "datetime",
             },
+            "x-decorator-props": {
+              tooltip: "This is a test",
+            },
           },
           password: {
             type: "string",
             required: true,
-            "x-component": "Password"
+            "x-component": "Password",
           },
           testSwitch: {
             type: "string",
@@ -69,7 +74,7 @@ export default Vue.extend({
             // "x-decorator-props": {
             //   layout: "horizontal"
             // }, //TODO
-            "x-component": "Switch"
+            "x-component": "Switch",
           },
           from: {
             type: "string",
@@ -79,7 +84,7 @@ export default Vue.extend({
             // "x-decorator-props": {
             //   layout: "horizontal"
             // }, //TODO
-            "x-component": "DatePicker"
+            "x-component": "DatePicker",
           },
           time: {
             type: "string",
@@ -89,7 +94,7 @@ export default Vue.extend({
             // "x-decorator-props": {
             //   layout: "horizontal"
             // }, //TODO
-            "x-component": "TimePicker"
+            "x-component": "TimePicker",
           },
           firstName: {
             type: "string",
