@@ -40,6 +40,8 @@ In order to take advantage this repo
 - [ ] Checkbox
 - [ ] Ensure that event data is bridged correctly. See [here](https://github.com/alibaba/formily/blob/formily_next/packages/element/src/input/index.ts#L9)
 - [ ] Mutliple JSONs to showcase the capabilities.
-....other components
+
+
+....and more to come
 ## Shout out
 Thanks [@vallemar](https://github.com/vallemar) for helping me setup `vue-demi`
