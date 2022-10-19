@@ -1,8 +1,10 @@
 # Nativescript + Formily
 [Edit in Codeflow ⚡️](https://stackblitz.com/~/github.com/azriel46d/nativescript-formily-example)
-
+(Just in case Stackblitz preview complains due to vue-demi , run `npx vue-demi-switch 2 nativescript-vue`)
 ## What is Formily?
+
 [Formily](https://formilyjs.org/)
+
 Formily is a Form Management Framework which can manage complex forms. It is developed by the Alibaba digital supply chain team. 
 What it tries to solve is 
 1. Complex Form Data &amp; State management
