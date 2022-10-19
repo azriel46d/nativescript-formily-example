@@ -47,55 +47,6 @@ export default Vue.extend({
       schema: {
         type: "object",
         properties: {
-          username: {
-            type: "string",
-            title: "Username",
-            required: true,
-            "x-decorator": "FormItem",
-            "x-component": "Input",
-            "x-component-props": {
-              hint: "Username",
-              keyboardType: "datetime",
-            },
-            "x-decorator-props": {
-              tooltip: "This is a test",
-            },
-          },
-          password: {
-            type: "string",
-            required: true,
-            "x-component": "Password",
-          },
-          testSwitch: {
-            type: "string",
-            title: "Rememeber me?",
-            required: true,
-            "x-decorator": "FormItem",
-            // "x-decorator-props": {
-            //   layout: "horizontal"
-            // }, //TODO
-            "x-component": "Switch",
-          },
-          from: {
-            type: "string",
-            title: "DatePicker",
-            required: true,
-            "x-decorator": "FormItem",
-            // "x-decorator-props": {
-            //   layout: "horizontal"
-            // }, //TODO
-            "x-component": "DatePicker",
-          },
-          time: {
-            type: "string",
-            title: "Time Picker",
-            required: true,
-            "x-decorator": "FormItem",
-            // "x-decorator-props": {
-            //   layout: "horizontal"
-            // }, //TODO
-            "x-component": "TimePicker",
-          },
           firstName: {
             type: "string",
             title: "Test2",
@@ -112,6 +63,59 @@ export default Vue.extend({
             },
             required: true,
             "x-component": "Input",
+          },
+          username: {
+            type: "string",
+            title: "Username",
+            required: true,
+            "x-decorator": "FormItem",
+            "x-component": "Input",
+            "x-component-props": {
+              hint: "@ChuckNorris...",
+              disabled: true
+            },
+            "x-decorator-props": {
+              tooltip: "Hey the username is generated",
+            },
+            "x-reactions": {
+              "dependencies": ["firstName","lastName"],
+              "fullfill": {
+                "state": {
+                  "value": "`@${firstName}.${lastName}`"
+                }
+              }
+            }
+          },
+          password: {
+            type: "string",
+            title: "Password",
+            required: true,
+            "x-decorator": "FormItem",
+            "x-component": "Password",
+          },
+          
+          
+          testSwitch: {
+            type: "string",
+            title: "Rememeber me?",
+            required: true,
+
+            "x-decorator": "FormItem",
+            "x-component": "Switch",
+          },
+          from: {
+            type: "string",
+            title: "Appointment Date",
+            required: true,
+            "x-decorator": "FormItem",
+            "x-component": "DatePicker",
+          },
+          time: {
+            type: "string",
+            title: "Appointment Time",
+            required: true,
+            "x-decorator": "FormItem",
+            "x-component": "TimePicker",
           },
         },
       },
