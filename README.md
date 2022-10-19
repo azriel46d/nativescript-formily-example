@@ -25,16 +25,16 @@ In order to take advantage this repo
     - Exposed
 
 ## Todo
-[x] Input
-[x] Textarea
-[x] Password
-[x] FormItem
-[x] Form
-[x] DatePicker
-[x] TimePicker
-[x] Switch
-[ ] Select
-[ ] Number
-[ ] Ensure that event data is bridged correctly. See [here](https://github.com/alibaba/formily/blob/formily_next/packages/element/src/input/index.ts#L9)
+- [x] Input
+- [x] Textarea
+- [x] Password
+- [x] FormItem
+- [x] Form
+- [x] DatePicker
+- [x] TimePicker
+- [x] Switch
+- [ ] Select
+- [ ] Number
+- [ ] Ensure that event data is bridged correctly. See [here](https://github.com/alibaba/formily/blob/formily_next/packages/element/src/input/index.ts#L9)
 ## Shout out
 Thanks [@vallemar](https://github.com/vallemar) for helping me setup `vue-demi`
