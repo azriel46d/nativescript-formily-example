@@ -23,4 +23,4 @@ In order to take advantage this repo
 
 
 ## Shout out
-Thanks @vallemar for helping me setup `vue-demi`
+Thanks [@vallemar](https://github.com/vallemar) for helping me setup `vue-demi`
