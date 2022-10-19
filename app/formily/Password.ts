@@ -1,7 +1,7 @@
 import { connect, mapProps, h } from '@formily/vue';
 import { defineComponent } from 'vue-demi';
 
-let input = defineComponent({
+let password = defineComponent({
   name: 'FormilyPassword',
   props: {},
   setup(customProps: any, { attrs, slots, listeners }) {
@@ -9,9 +9,11 @@ let input = defineComponent({
       return h(
         'TextField',
         {
-          attrs,
+          attrs: {
+            ...attrs,
+            secure: true
+          },
           on: listeners,
-          secure: true
         },
         slots
       );
@@ -19,18 +21,8 @@ let input = defineComponent({
   },
 });
 
-const Input = connect(input);
+const Password = connect(password);
 
-const TextArea = connect(
-  Input,
-  mapProps((props) => {
-    return {
-      ...props,
-      wrapText: true,
-    };
-  })
-);
-//@ts-ignore
-Input.TextArea = TextArea;
 
-export default Input;
+
+export default Password;
