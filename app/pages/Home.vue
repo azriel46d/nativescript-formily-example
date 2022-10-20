@@ -4,13 +4,16 @@
       <Label text="{N} + Formily = ❤️‍🔥" class="font-bold text-lg" />
     </ActionBar>
     <RootLayout height="100%" width="100%" verticalAlignment="bottom">
-      <ScrollView>
-        <StackLayout orientation="vertical" class="p-4">
-          <Form :form="form">
-            <SchemaField :schema="schema" />
-          </Form>
-        </StackLayout>
-      </ScrollView>
+      <GridLayout rows="*, auto">
+        <ScrollView>
+          <StackLayout orientation="vertical" class="p-4">
+            <Form :form="form">
+              <SchemaField :schema="schema" />
+            </Form>
+          </StackLayout>
+        </ScrollView>
+        <Button row="2" class="rounded bg-sky-400 text-white mb-4 w-10/12" @tap="lookAtFormData">👀 Form Data</Button>
+      </GridLayout>
     </RootLayout>
   </Page>
 </template>
@@ -19,8 +22,18 @@
 import Vue from "nativescript-vue";
 import { createForm } from "@formily/core";
 import { createSchemaField } from "@formily/vue";
-import { DatePicker, Form, FormItem, Input, Switch, Password, TimePicker } from "@/formily"
-
+import {
+  DatePicker,
+  Form,
+  FormItem,
+  Input,
+  Switch,
+  Password,
+  TimePicker,
+  Select
+} from "@/formily";
+import BottomSheetViewVue from "~/component/BottomSheet/BottomSheetView.vue";
+import { OpenRootLayout } from "~/component/OpenRootLayout";
 
 const { SchemaField } = createSchemaField({
   components: {
@@ -31,6 +44,7 @@ const { SchemaField } = createSchemaField({
     Switch,
     DatePicker,
     TimePicker,
+    Select
   },
 });
 export default Vue.extend({
@@ -65,19 +79,20 @@ export default Vue.extend({
             "x-component": "Input",
             "x-component-props": {
               hint: "@ChuckNorris...",
-              disabled: true
+              disabled: true,
             },
             "x-decorator-props": {
               tooltip: "Lorem ipsum test a tooltip sheet with some text here.",
             },
             "x-reactions": {
-              "dependencies": ["firstName","lastName"],
-              "fullfill": {
-                "state": {
-                  "value": "`@${firstName}.${lastName}`"
-                }
-              }
-            }
+              dependencies: ["firstName", "lastName"],
+              fulfill: {
+                state: {
+                  value:
+                    "{{$deps[0] ? `@${$deps[0]}${($deps[1] ? '.' + $deps[1] : '')}` : undefined}}",
+                },
+              },
+            },
           },
           password: {
             type: "string",
@@ -85,9 +100,9 @@ export default Vue.extend({
             required: true,
             "x-decorator": "FormItem",
             "x-component": "Password",
+            pattern: '/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/'
           },
-          
-          
+
           testSwitch: {
             type: "string",
             title: "Rememeber me?",
@@ -110,15 +125,28 @@ export default Vue.extend({
             "x-decorator": "FormItem",
             "x-component": "TimePicker",
           },
+          country: {
+            type: "string",
+            title: "Country",
+            required: true,
+            "x-decorator": "FormItem",
+            "x-component": "Select",
+            enum: [{
+              label: "🇨🇦 Canada",
+              value: "CA"
+            },{
+              label: "🇬🇧 United Kingdom",
+              value: "UK"
+            },{
+              label: "🇺🇸 United States",
+              value: "Us"
+            }]
+          },
         },
       },
     };
   },
-  computed: {
-    message() {
-      return "Blank {N}-Vue app";
-    },
-  },
+
   components: {
     Form,
     SchemaField,
@@ -127,6 +155,22 @@ export default Vue.extend({
   methods: {
     logMessage() {
       console.log("You have tapped the message!");
+    },
+    lookAtFormData() {
+      const view = new Vue({
+        render: (h) =>
+          h(BottomSheetViewVue, { props: { label: "Form Values:" } }, [
+            h("Label", {
+              attrs: {
+                text: JSON.stringify(this.form.values, null, 2),
+                textWrap: true,
+                row: 2,
+              },
+              class: "w-full text-lg mb-8 leading-tight",
+            }),
+          ]),
+      }).$mount().nativeView;
+      OpenRootLayout(view)
     },
   },
 });

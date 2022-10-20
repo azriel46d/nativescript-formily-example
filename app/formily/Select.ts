@@ -1,4 +1,4 @@
-import { connect, h } from "@formily/vue";
+import { connect, h, mapProps } from "@formily/vue";
 import { computed, defineComponent, ref, watch } from "vue-demi";
 import Vue from "nativescript-vue";
 import BottomSheetView from "~/component/BottomSheet/BottomSheetView.vue";
@@ -6,30 +6,31 @@ import { OpenRootLayout, CloseRootLayout } from "~/component/OpenRootLayout";
 import { transformComponent } from "~/common/transformComponent";
 
 let input = defineComponent({
-  name: "FormilyTimePicker",
+  name: "FormilySelect",
   props: {},
   setup(customProps: any, { attrs, slots, listeners = {}, emit }) {
-    let timePickerState = ref({
-      hour: attrs?.value?.hour,
-      minute: attrs?.value?.minute,
+    let SelectState = ref({
+      value: attrs?.value,
     });
     let textFieldState = ref({
-      hour: attrs?.value?.hour,
-      minute: attrs?.value?.minute,
+      value: attrs?.value,
     });
     let textFieldText = computed(() => {
-      return textFieldState.value.hour
-        ? `🕚 ${textFieldState.value.hour || "-"}:${textFieldState.value.minute}`
-        : "🕚";
+      return (
+        attrs?.dataSource?.find((item) => item.value === textFieldState.value)
+          ?.label || ""
+      );
     });
-    watch(() => textFieldState.value.hour, () => emit('input', [textFieldState.value.hour,textFieldState.value.minute]))
-    watch(() => textFieldState.value.minute, () => emit('input', [textFieldState.value.hour,textFieldState.value.minute]))
+    watch(
+      () => textFieldState.value,
+      () => emit("input", textFieldState.value)
+    );
+
     return () => {
       let TextField = h(
         "Label",
         {
           attrs: {
-            // editable: false,
             text: textFieldText.value,
             class: "py-4 border-b-2 w-full border-gray-900 ",
           },
@@ -38,17 +39,20 @@ let input = defineComponent({
             onTap() {
               const view = new Vue({
                 render: (h) => {
-                  let timePicker = h("TimePicker", {
+                  let Select = h("ListPicker", {
                     attrs: {
                       ...attrs,
-                      hour: timePickerState.value.hour,
-                      minute: timePickerState.value.minute
+                      //@ts-ignore
+                      items: attrs.dataSource?.map((item) => item.label),
+                      //@ts-ignore
+                      selectedIndex: attrs.dataSource?.findIndex(
+                        (item) => item.value === textFieldState.value
+                      ),
                     },
                     on: {
                       //@ts-ignore
-                      timeChange(e) {
-                        timePickerState.value.hour = e.object.hour;
-                        timePickerState.value.minute = e.object.minute;
+                      selectedIndexChange(e) {
+                        SelectState.value = attrs?.dataSource[e.value]?.value;
                       },
                     },
                   });
@@ -62,7 +66,7 @@ let input = defineComponent({
                     },
                     [
                       h("StackLayout", { class: "w-full" }, [
-                        timePicker,
+                        Select,
                         h("Button", {
                           attrs: {
                             text: "Select Value",
@@ -70,7 +74,7 @@ let input = defineComponent({
                           },
                           on: {
                             onTap() {
-                              textFieldState.value = timePickerState.value;
+                              textFieldState.value = SelectState.value;
                               CloseRootLayout(view);
                             },
                           },
@@ -94,6 +98,9 @@ let input = defineComponent({
   },
 });
 
-const TimePicker = connect(transformComponent(input, {change: 'input'}));
+const Select = connect(
+  transformComponent(input, { change: "input" }),
+  mapProps({ dataSource: true })
+);
 
-export default TimePicker;
+export default Select;

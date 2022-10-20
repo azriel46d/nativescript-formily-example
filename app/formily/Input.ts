@@ -1,16 +1,23 @@
-import { connect, mapProps, h } from '@formily/vue';
-import { defineComponent } from 'vue-demi';
+import { connect, mapProps, h } from "@formily/vue";
+import { EventData } from "@nativescript/core";
+import { defineComponent } from "vue-demi";
+import { transformComponent } from "~/common/transformComponent";
 
 let input = defineComponent({
-  name: 'FormilyTextField',
+  name: "FormilyTextField",
   props: {},
-  setup(customProps: any, { attrs, slots, listeners }) {
+  setup(customProps: any, { attrs, slots, listeners, emit }) {
     return () => {
       return h(
-        'TextField',
+        "TextField",
         {
           attrs,
-          on: listeners,
+          on: {
+            ...listeners,
+            textChange(e) {
+              emit("input", e.value);
+            },
+          },
         },
         slots
       );
@@ -18,16 +25,22 @@ let input = defineComponent({
   },
 });
 
-const Input = connect(input);
+const TransformElInput = transformComponent(input, {
+  change: 'input',
+})
+
+const Input = connect(TransformElInput, mapProps({ value: 'text' }));
 
 const TextArea = connect(
   Input,
-  mapProps((props) => {
-    return {
-      ...props,
-      wrapText: true,
-    };
-  })
+  mapProps(
+    (props) => {
+      return {
+        ...props,
+        wrapText: true,
+      };
+    }
+  )
 );
 //@ts-ignore
 Input.TextArea = TextArea;

@@ -1,17 +1,22 @@
-import { connect, mapProps, h } from '@formily/vue';
-import { defineComponent } from 'vue-demi';
+import { connect, mapProps, h } from "@formily/vue";
+import { defineComponent } from "vue-demi";
+import { transformComponent } from "~/common/transformComponent";
 
 let input = defineComponent({
-  name: 'FormilySwitch',
+  name: "FormilySwitch",
   props: {},
-  setup(customProps: any, { attrs, slots, listeners }) {
+  setup(customProps: any, { attrs, slots, listeners, emit }) {
     return () => {
       return h(
-        'Switch',
+        "Switch",
         {
           attrs,
-          on: listeners,
-          secure: true
+          on: {
+            ...listeners,
+            checkedChange(e) {
+              emit("input", e.value);
+            },
+          },
         },
         slots
       );
@@ -19,7 +24,9 @@ let input = defineComponent({
   },
 });
 
-const Switch = connect(input);
-
+const Switch = connect(
+  transformComponent(input, { change: "input" }),
+  mapProps({ value: "checked" })
+);
 
 export default Switch;

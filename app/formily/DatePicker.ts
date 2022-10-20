@@ -3,7 +3,9 @@ import { computed, defineComponent, ref, watch } from "vue-demi";
 import Vue from "nativescript-vue";
 import BottomSheetView from "~/component/BottomSheet/BottomSheetView.vue";
 import { OpenRootLayout, CloseRootLayout } from "~/component/OpenRootLayout";
-import { format } from 'date-fns'
+import { format } from "date-fns";
+import { transformComponent } from "~/common/transformComponent";
+
 
 let input = defineComponent({
   name: "FormilyDatePicker",
@@ -13,18 +15,22 @@ let input = defineComponent({
       date: attrs.value,
     });
     let textFieldState = ref({
-      date: attrs.value
+      date: attrs.value,
     });
     let textFieldText = computed(() => {
       if (textFieldState.value.date) {
-        let d = new Date(textFieldState.value.date);
-        return `🗓 ${format(d, "dd-MMM-yyyy")}`;
+        try {
+          let d = new Date(textFieldState.value.date);
+          return `🗓 ${format(d, "dd-MMM-yyyy")}`;
+        } catch (e) {
+          return "🗓";
+        }
       } else {
         return "🗓";
       }
     });
     watch(
-      () => textFieldState.value,
+      () => textFieldState.value.date,
       () => emit("input", textFieldState.value.date)
     );
     return () => {
@@ -44,7 +50,7 @@ let input = defineComponent({
                   let DatePicker = h("DatePicker", {
                     attrs: {
                       ...attrs,
-                      date: datePickerState.value.date
+                      date: datePickerState.value.date,
                     },
                     on: {
                       //@ts-ignore
@@ -71,7 +77,13 @@ let input = defineComponent({
                           },
                           on: {
                             onTap() {
-                              textFieldState.value.date = new Date(datePickerState.value.date)
+                              try {
+                                textFieldState.value.date = new Date(
+                                  datePickerState.value.date
+                                );
+                              } catch (e) {
+                                console.log(e);
+                              }
                               CloseRootLayout(view);
                             },
                           },
@@ -95,6 +107,6 @@ let input = defineComponent({
   },
 });
 
-const DatePicker = connect(input);
+const DatePicker = connect(transformComponent(input, { change: "input" }));
 
 export default DatePicker;

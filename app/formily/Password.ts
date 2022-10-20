@@ -1,19 +1,25 @@
-import { connect, mapProps, h } from '@formily/vue';
-import { defineComponent } from 'vue-demi';
+import { connect, mapProps, h } from "@formily/vue";
+import { defineComponent } from "vue-demi";
+import { transformComponent } from "~/common/transformComponent";
 
 let password = defineComponent({
-  name: 'FormilyPassword',
+  name: "FormilyPassword",
   props: {},
-  setup(customProps: any, { attrs, slots, listeners }) {
+  setup(customProps: any, { attrs, slots, listeners, emit }) {
     return () => {
       return h(
-        'TextField',
+        "TextField",
         {
           attrs: {
             ...attrs,
-            secure: true
+            secure: true,
           },
-          on: listeners,
+          on: {
+            ...listeners,
+            textChange(e) {
+              emit("input", e.value);
+            },
+          },
         },
         slots
       );
@@ -21,8 +27,9 @@ let password = defineComponent({
   },
 });
 
-const Password = connect(password);
-
-
+const TransformElPwd = transformComponent(password, {
+  change: 'input',
+})
+const Password = connect(TransformElPwd, mapProps({value: 'text'}));
 
 export default Password;

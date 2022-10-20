@@ -7,7 +7,6 @@ const Item = connect(
   mapProps(
     { validateStatus: true, title: "label", required: true },
     (props, field) => {
-        console.log('llalal')
       if (isVoidField(field)) return props;
       if (!field) return props;
       const takeMessage = () => {

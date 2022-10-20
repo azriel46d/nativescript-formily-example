@@ -92,13 +92,13 @@ export default defineComponent({
     feedbackClass(): string {
       switch (this.feedbackStatus) {
         case "error":
-          return "bg-red-400";
+          return "text-red-400";
         case "success":
-          return "bg-green-400";
+          return "text-green-400";
         case "warning":
-          return "bg-yellow-400";
+          return "text-yellow-400";
         default:
-          return "bg-gray-100";
+          return "text-gray-100";
       }
     },
   },
