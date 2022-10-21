@@ -3,7 +3,8 @@
 (Just in case Stackblitz preview complains due to vue-demi , run `npx vue-demi-switch 2 nativescript-vue`)
 
 
-![Example](example-formily-ns.gif =100x)
+<img src="example-formily-ns.gif" alt="drawing" width="200" style="margin:0 auto;"/>
+
 
 ## What is Formily?
 
@@ -40,7 +41,7 @@ In order to take advantage this repo
 - [x] DatePicker
 - [x] TimePicker
 - [x] Switch
-- [ ] Select
+- [x] Select
 - [ ] Number
 - [ ] Radio
 - [ ] Checkbox
