@@ -1,6 +1,9 @@
 # Nativescript + Formily
 [Edit in Codeflow ⚡️](https://stackblitz.com/~/github.com/azriel46d/nativescript-formily-example)
 (Just in case Stackblitz preview complains due to vue-demi , run `npx vue-demi-switch 2 nativescript-vue`)
+
+![Example](./example.mov)
+
 ## What is Formily?
 
 [Formily](https://formilyjs.org/)
@@ -47,3 +50,8 @@ In order to take advantage this repo
 ....and more to come
 ## Shout out
 Thanks [@vallemar](https://github.com/vallemar) for helping me setup `vue-demi`
+
+
+
+
+(Want to buy me a ☕️ ?)[https://www.buymeacoffee.com/azriel46d]
