@@ -3,7 +3,7 @@
 (Just in case Stackblitz preview complains due to vue-demi , run `npx vue-demi-switch 2 nativescript-vue`)
 
 
-![Example](example-formily-ns.gif)
+![Example](example-formily-ns.gif =100x)
 
 ## What is Formily?
 
